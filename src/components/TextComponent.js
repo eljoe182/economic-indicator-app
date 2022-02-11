@@ -1,13 +1,19 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
-import colors from '../constants/colors';
+import {Colors} from 'react-native-paper';
 
-const TextComponent = ({children, size, color}) => {
+const TextComponent = ({
+  children,
+  size = 14,
+  color = Colors.grey800,
+  textAlign = 'justify',
+}) => {
   return (
     <Text
       style={{
         fontSize: size,
         color: color,
+        textAlign: textAlign,
       }}>
       {children}
     </Text>
@@ -15,9 +21,3 @@ const TextComponent = ({children, size, color}) => {
 };
 
 export default TextComponent;
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-  },
-});

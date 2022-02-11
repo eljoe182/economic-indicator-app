@@ -2,29 +2,32 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import TextComponent from './TextComponent';
 import colors from '../constants/colors';
+import {Button, Colors} from 'react-native-paper';
+import IconComponent from './IconComponent';
 
-const ItemListComponent = ({info: {item}, onPress, onPressInfo}) => {
+const SPACING = 20;
+
+const ItemListComponent = ({info, style, onPress, onPressInfo}) => {
+  const {codigo, nombre, unidad_medida} = info;
   return (
     <TouchableOpacity
-      style={styles.container}
-      onPress={() => onPress(item.codigo)}>
+      style={[styles.container, style]}
+      onPress={() => onPress(codigo)}>
       <View style={styles.description}>
         <View style={styles.descriptionContainer}>
-          <TextComponent size={18}>{item.nombre}</TextComponent>
+          <TextComponent size={16}>{nombre}</TextComponent>
         </View>
         <View style={styles.unitContainer}>
-          <TextComponent size={14} color={colors.textSecond}>
-            {item.unidad_medida}
+          <TextComponent size={14} color={Colors.grey500}>
+            {unidad_medida}
           </TextComponent>
         </View>
       </View>
-      <TouchableOpacity style={styles.info} onPress={onPressInfo}>
-        <TextComponent size={18}>¡</TextComponent>
+      <TouchableOpacity style={styles.info} onPress={() => onPressInfo(info)}>
+        <IconComponent iconName={'info'} color={Colors.blue400} />
       </TouchableOpacity>
       <View style={styles.chevron}>
-        <TextComponent size={18} color={colors.divider}>
-          &gt;
-        </TextComponent>
+        <IconComponent iconName={'angleRight'} color={Colors.grey300} />
       </View>
     </TouchableOpacity>
   );
@@ -34,18 +37,24 @@ export default ItemListComponent;
 
 const styles = StyleSheet.create({
   container: {
-    height: 65,
-    paddingHorizontal: 30,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#C2C2C2',
+    padding: SPACING,
+    marginBottom: SPACING,
+    backgroundColor: Colors.white,
+    borderRadius: 12,
+    shadowColor: Colors.grey900,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    height: 70,
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
   },
   description: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingVertical: 10,
   },
   info: {
     justifyContent: 'center',
